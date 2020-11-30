@@ -1,35 +1,62 @@
-const { Pembayaran } = require("../models");
+const Pembayaran = require("../models/pembayaran");
 
 module.exports = {
   index(req, res) {
-    Pembayaran.findAll().then(function (rows) {
-      res.json(rows);
-    });
+    Pembayaran.find({})
+      .populate("idanakkos")
+      .exec()
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   findById(req, res) {
-    Pembayaran.findByPk(req.params.id).then(function (rows) {
-      res.json(rows);
-    });
+    Pembayaran.findOne({ _id: req.params.id })
+      .populate("idanakkos")
+      .exec()
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   store(req, res) {
-    Pembayaran.create(req.body).then(function (rows) {
-      res.json(rows);
-    });
+    Pembayaran.create(req.body)
+      .then((row) => {
+        res.send(row);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   update(req, res) {
-    Pembayaran.findByPk(req.params.id).then(function (rows) {
-      rows.update(req.body);
-      res.json(rows);
-    });
+    data = req.body;
+    Pembayaran.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: data },
+      { new: true }
+    )
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   destroy(req, res) {
-    Pembayaran.findByPk(req.params.id).then(function (rows) {
-      rows.destroy();
-      res.json(rows);
-    });
+    Pembayaran.findByIdAndDelete({ _id: req.params.id })
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 };

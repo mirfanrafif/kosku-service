@@ -1,32 +1,23 @@
-"use strict";
-const { Model } = require("sequelize");
+const mongoose = require("mongoose");
 
-module.exports = (sequelize, DataTypes) => {
-  class AnakKos extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  AnakKos.init(
-    {
-      nama: DataTypes.STRING,
-      asal: DataTypes.STRING,
-      nohp: DataTypes.STRING,
+const anakKosSchema = new mongoose.Schema(
+  {
+    nama: {
+      type: String,
+      required: true,
     },
-    {
-      sequelize,
-      modelName: "AnakKos",
-    }
-  );
+    asal: {
+      type: String,
+      required: true,
+    },
+    nohp: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    collection: "anakkos",
+  }
+);
 
-  AnakKos.associate = function (models) {
-    AnakKos.hasMany(models.Pembayaran, { foreignKey: "idanakkos" });
-  };
-
-  return AnakKos;
-};
+module.exports = mongoose.model("AnakKos", anakKosSchema);

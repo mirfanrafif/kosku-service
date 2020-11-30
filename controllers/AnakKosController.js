@@ -1,35 +1,61 @@
-const { AnakKos } = require("../models");
+const AnakKos = require("../models/anakkos");
 
 module.exports = {
   index(req, res) {
-    AnakKos.findAll().then(function (rows) {
-      res.json(rows);
-    });
+    AnakKos.find({})
+      .populate("idanakkos")
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   findById(req, res) {
-    AnakKos.findByPk(req.params.id).then(function (rows) {
-      res.json(rows);
-    });
+    AnakKos.find({ _id: req.params.id })
+      .populate("idanakkos")
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   store(req, res) {
-    AnakKos.create(req.body).then(function (rows) {
-      res.json(rows);
-    });
+    data = req.body;
+    AnakKos.create({ ...data })
+      .then((row) => {
+        res.send(row);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   update(req, res) {
-    AnakKos.findByPk(req.params.id).then(function (rows) {
-      rows.update(req.body);
-      res.json(rows);
-    });
+    data = req.body;
+    AnakKos.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: data },
+      { new: true }
+    )
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 
   destroy(req, res) {
-    AnakKos.findByPk(req.params.id).then(function (rows) {
-      rows.destroy();
-      res.json(rows);
-    });
+    AnakKos.findByIdAndDelete({ _id: req.params.id })
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
   },
 };
