@@ -2,7 +2,7 @@ const Pembayaran = require("../models/pembayaran");
 
 module.exports = {
   index(req, res) {
-    Pembayaran.find({})
+    Pembayaran.find({ tampil: true })
       .populate("idanakkos")
       .exec()
       .then((rows) => {
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   findById(req, res) {
-    Pembayaran.findOne({ _id: req.params.id })
+    Pembayaran.findOne({ _id: req.params.id, tampil: true })
       .populate("idanakkos")
       .exec()
       .then((rows) => {
@@ -26,7 +26,13 @@ module.exports = {
   },
 
   store(req, res) {
-    Pembayaran.create(req.body)
+    data = req.body;
+    Pembayaran.create({
+      idanakkos: data.idanakkos,
+      bulan: data.bulan,
+      tahun: data.tahun,
+      tampil: true,
+    })
       .then((row) => {
         res.send(row);
       })
@@ -51,7 +57,7 @@ module.exports = {
   },
 
   destroy(req, res) {
-    Pembayaran.findByIdAndDelete({ _id: req.params.id })
+    Pembayaran.findByIdAndUpdate({ _id: req.params.id }, { tampil: false })
       .then((rows) => {
         res.json(rows);
       })

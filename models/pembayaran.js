@@ -14,6 +14,10 @@ const pembayaranSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    tampil: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     collection: "pembayaran",
