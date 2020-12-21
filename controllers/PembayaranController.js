@@ -34,7 +34,12 @@ module.exports = {
       tampil: true,
     })
       .then((row) => {
-        res.send(row);
+        Pembayaran.findOne({ _id: row.id })
+          .populate("idanakkos")
+          .exec()
+          .then((row) => {
+            res.json(row);
+          });
       })
       .catch((err) => {
         res.json(err);
@@ -49,7 +54,12 @@ module.exports = {
       { new: true }
     )
       .then((rows) => {
-        res.json(rows);
+        Pembayaran.findOne({ _id: rows.id })
+          .populate("idanakkos")
+          .exec()
+          .then((row) => {
+            res.json(row);
+          });
       })
       .catch((err) => {
         res.json(err);
@@ -59,7 +69,12 @@ module.exports = {
   destroy(req, res) {
     Pembayaran.findByIdAndUpdate({ _id: req.params.id }, { tampil: false })
       .then((rows) => {
-        res.json(rows);
+        Pembayaran.findOne({ _id: rows.id })
+          .populate("idanakkos")
+          .exec()
+          .then((row) => {
+            res.json(row);
+          });
       })
       .catch((err) => {
         res.json(err);
