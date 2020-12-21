@@ -7,7 +7,7 @@ const pembayaranSchema = new mongoose.Schema(
       ref: "AnakKos",
     },
     bulan: {
-      type: Number,
+      type: String,
       required: true,
     },
     tahun: {
