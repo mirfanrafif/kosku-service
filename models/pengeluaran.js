@@ -10,6 +10,10 @@ const pengeluaranSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    nominal: {
+      type: Number,
+      required: true,
+    },
     tanggal: {
       type: Date,
       required: true,
