@@ -14,6 +14,10 @@ const anakKosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    contactID: {
+      type: String,
+      required: true,
+    },
     tampil: {
       type: Boolean,
       required: true,

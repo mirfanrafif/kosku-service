@@ -3,7 +3,7 @@ const Pembayaran = require("../models/pembayaran");
 
 module.exports = {
   index(req, res) {
-    AnakKos.find({tampil: true})
+    AnakKos.find({ tampil: true })
       .then((rows) => {
         res.json(rows);
       })
@@ -13,12 +13,10 @@ module.exports = {
   },
 
   findById(req, res) {
-    AnakKos.findOne(
-      { 
-        _id: req.params.id,
-        tampil: true
-     }
-     )
+    AnakKos.findOne({
+      _id: req.params.id,
+      tampil: true,
+    })
       .then((rows) => {
         res.json(rows);
       })
@@ -29,12 +27,13 @@ module.exports = {
 
   store(req, res) {
     data = req.body;
-    AnakKos.create({ 
+    AnakKos.create({
       nama: data.nama,
       asal: data.asal,
       nohp: data.nohp,
-      tampil: true
-     })
+      contactID: data.contactID,
+      tampil: true,
+    })
       .then((row) => {
         res.send(row);
       })
@@ -59,7 +58,7 @@ module.exports = {
   },
 
   destroy(req, res) {
-    AnakKos.findOneAndUpdate({ _id: req.params.id }, {tampil: false})
+    AnakKos.findOneAndUpdate({ _id: req.params.id }, { tampil: false })
       .then((rows) => {
         res.json(rows);
       })
