@@ -26,7 +26,7 @@ module.exports = {
   },
 
   store(req, res) {
-    data = req.body;
+    var data = req.body;
     Pengeluaran.create({
       nama_pengeluaran: data.nama_pengeluaran,
       jenis_pengeluaran: data.jenis_pengeluaran,
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   update(req, res) {
-    data = req.body;
+    var data = req.body;
     Pengeluaran.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: data },

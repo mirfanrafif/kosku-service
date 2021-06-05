@@ -1,5 +1,4 @@
 const AnakKos = require("../models/anakkos");
-const Pembayaran = require("../models/pembayaran");
 
 module.exports = {
   index(req, res) {
@@ -26,7 +25,7 @@ module.exports = {
   },
 
   store(req, res) {
-    data = req.body;
+    var data = req.body;
     AnakKos.create({
       nama: data.nama,
       asal: data.asal,
@@ -43,7 +42,7 @@ module.exports = {
   },
 
   update(req, res) {
-    data = req.body;
+    var data = req.body;
     AnakKos.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: data },

@@ -26,7 +26,7 @@ module.exports = {
   },
 
   store(req, res) {
-    data = req.body;
+    var data = req.body;
     Pembayaran.create({
       idanakkos: data.idanakkos,
       bulan: data.bulan,
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   update(req, res) {
-    data = req.body;
+    var data = req.body;
     Pembayaran.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: data },
