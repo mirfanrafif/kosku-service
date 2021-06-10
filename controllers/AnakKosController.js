@@ -30,7 +30,6 @@ module.exports = {
       nama: data.nama,
       asal: data.asal,
       nohp: data.nohp,
-      contactID: data.contactID,
       tampil: true,
     })
       .then((row) => {
